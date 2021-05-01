@@ -1,3 +1,56 @@
+# 🕵️‍♀️ AnomalyDetectionWebApp
+## 🔎 Overview
+
+### Special Features
+
+## 👪 Project Hierarchy
+
+To view the detailed hierarchy, expand the sections below:
+<details>
+<summary>dir1</summary>
+<p>
+
+```
+
+```
+
+</p>
+</details>
+<details>
+<summary>dir2</summary>
+<p>
+
+```
+
+```
+
+</p>
+</details>
+
+</p>
+</details>
+<details>
+<summary>dir3</summary>
+<p>
+
+```
+
+```
+
+</p>
+</details>
+
+
+
+## 🔧 Technical Requirements
+
+## 📋 Installation Guide for Clean Environment
+
+## 📚 Further Documentation
+For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our Wiki Site.
+## 🎥 Demo
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
