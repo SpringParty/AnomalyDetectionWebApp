@@ -45,13 +45,12 @@ To view the detailed hierarchy, expand the sections below:
 ## 🔧 Technical Requirements
 1. Install LTS version of [Node.js](https://nodejs.org/en/).
    While installing Node.js, make sure that the following path will be added to PATH environment variable: C:\\Users\username\AppData\Roaming\npm.
-3. Install nodemon from npm - open cmd and run the following command: npm install nodemon -g
-3
+2. Install nodemon from npm - open cmd and run the following command: `npm install nodemon -g`
 
 ## 📋 Installation Guide for Clean Environment
 1. Install [React Developer Tools for Google Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
-2. After clonening repo, open cmd from the repo's folder and run the following command: npm -i
-3. Open cmd from the repo's folder and run the following command: npm start
+2. After clonening repo, open cmd from the repo's folder and run the following command: `npm -i`
+3. Open cmd from the repo's folder and run the following command: `npm start`
 
 ## 📚 Further Documentation
 For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our Wiki Site.
