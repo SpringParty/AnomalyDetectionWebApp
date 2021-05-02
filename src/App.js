@@ -16,7 +16,7 @@ class App extends Component {
     }
 
     callapi = async () => {
-        const response = await fetch('/api/hello');
+        const response = await fetch('/api/models');
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
 
@@ -25,8 +25,8 @@ class App extends Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        const response = await fetch('/api/world', {
-            method: 'POST',
+        const response = await fetch('/api/model', {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
