@@ -49,7 +49,7 @@ To view the detailed hierarchy, expand the sections below:
 
 ## 📋 Installation Guide for Clean Environment
 1. Install [React Developer Tools for Google Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
-2. After clonening repo, open cmd from the repo's folder and run the following command: `npm -i`
+2. After clonening repo, open cmd from the repo's folder and run the following command: `npm i`
 3. Open cmd from the repo's folder and run the following command: `npm start`
 
 ## 📚 Further Documentation
@@ -57,7 +57,7 @@ For more info regarding the main classes of the project, information flow and UM
 ## 🎥 Demo
 
 
-
+___
 
 # Getting Started with Create React App
 
