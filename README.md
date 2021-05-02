@@ -57,7 +57,7 @@ For more info regarding the main classes of the project, information flow and UM
 ## 🎥 Demo
 
 
-
+___
 
 # Getting Started with Create React App
 
