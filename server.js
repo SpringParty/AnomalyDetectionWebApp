@@ -7,13 +7,19 @@ const { deepStrictEqual } = require('assert');
 
 const readyStatus = "ready";
 const pendingStatus = "pending";
+const modelsDir = path.join(__dirname, 'models');
 const modelsStatusFile = path.join(__dirname, 'models', 'modelsStatus.csv');
-try {    
+
+try {
     // if models file exists
     if (fs.existsSync(modelsStatusFile)) {
         console.log(`${modelsStatusFile} already exists`);
     // if models file does not exist
     } else {
+        if (!fs.existsSync(modelsDir)) {
+            fs.mkdirSync(modelsDir);
+            console.log(`Created ${modelsDir}`);
+        }
         // try to create the file
         fs.writeFile(modelsStatusFile, 'model_id,upload_time,status\n', 'utf8', function(err) {
             if (err) return console.log(err);
