@@ -8,12 +8,6 @@ const { deepStrictEqual } = require('assert');
 const readyStatus = "ready";
 const pendingStatus = "pending";
 const modelsStatusFile = path.join(__dirname, 'models', 'modelsStatus.csv');
-
-
-const app = express();
-const port = 9876;
-
-
 try {    
     // if models file exists
     if (fs.existsSync(modelsStatusFile)) {
@@ -30,6 +24,8 @@ try {
     console.error(err);
 }
 
+const port = 5000;
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

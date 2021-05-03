@@ -18,7 +18,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start-js": "set PORT=8080 && react-scripts start",
+    "start-js": "set PORT=9876 && react-scripts start",
     "backend-start": "node server.js",
     "start": "concurrently \"npm-run-all -p backend-start start-js\"",
     "build": "npm-run-all build-css && react-scripts build",
@@ -43,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9876/"
+  "proxy": "http://localhost:5000/"
 }
