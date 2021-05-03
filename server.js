@@ -5,13 +5,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { deepStrictEqual } = require('assert');
 
+const readyStatus = "ready";
+const pendingStatus = "pending";
+const modelsStatusFile = path.join(__dirname, 'models', 'modelsStatus.csv');
+
 
 const app = express();
 const port = 9876;
-const modelsStatusFile = path.join(__dirname, 'models', 'modelsStatus.csv');
 
-const readyStatus = "ready";
-const pendingStatus = "pending";
 
 try {    
     // if models file exists
@@ -31,7 +32,6 @@ try {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 app.get('/api/model', (req, res) => {
     const modelID = req.query["model_id"];
