@@ -10,15 +10,14 @@ const pendingStatus = "pending";
 const modelsDir = path.join(__dirname, 'models');
 const modelsStatusFile = path.join(__dirname, 'models', 'modelsStatus.csv');
 
-function Detector(filePath){
+function Detector(filePath,detectorType){
     this.detector = function(str){
         return _addonInstance.learnNormal(str);
     }
     var _addonInstance = new cppaddon.Detector();
-    console.log(_addonInstance.learnNormal(filePath));
+    console.log(_addonInstance.learnNormal(filePath,detectorType));
 }
-module.exports = Detector;
-const instance = new Detector("./reg_flight.csv");
+const instance = new Detector("./reg_flight.csv","Hybrid");
 
 try {
     // if models file exists
