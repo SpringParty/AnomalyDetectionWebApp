@@ -3,11 +3,22 @@ const path = require('path');
 const csv = require('csvtojson');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cppaddon = require('./addons/cppaddon.node')
 
 const readyStatus = "ready";
 const pendingStatus = "pending";
 const modelsDir = path.join(__dirname, 'models');
 const modelsStatusFile = path.join(__dirname, 'models', 'modelsStatus.csv');
+
+function Detector(filePath){
+    this.detector = function(str){
+        return _addonInstance.learnNormal(str);
+    }
+    var _addonInstance = new cppaddon.Detector();
+    console.log(_addonInstance.learnNormal(filePath));
+}
+module.exports = Detector;
+const instance = new Detector("./reg_flight.csv");
 
 try {
     // if models file exists
