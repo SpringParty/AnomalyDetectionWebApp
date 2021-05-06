@@ -4,6 +4,7 @@ const cors = require('cors');
 const csv = require('csvtojson');
 const express = require('express');
 const bodyParser = require('body-parser');
+const Detector = require('./Detector.js')
 
 const readyStatus = "ready";
 const pendingStatus = "pending";
