@@ -10,10 +10,6 @@ const readyStatus = "ready";
 const pendingStatus = "pending";
 const modelsDir = path.join(__dirname, "models");
 const modelsStatusFile = path.join(__dirname, "models", "modelsStatus.csv");
-const {
-  Parser,
-  transforms: { unwind },
-} = require("json2csv");
 const cppaddon = require("./addons/cppaddon.node");
 
 try {
@@ -146,47 +142,6 @@ app.delete("/api/model", (req, res) => {
 });
 
 app.post("/api/model", (req, res) => {
-  const dataFile = path.join(__dirname, "raw_data.csv");
-  fields = [];
-  quote = "";
-  counter = 0;
-  array = [];
-  //   extract the fields from the JSON file
-  Object.keys(req.body).forEach(function (key) {
-    fields[counter] = key;
-    // array[counter] = req.body[key];
-    counter++;
-  });
-  //   filePath = "[" + "'" + fields.join("','") + "'" + "]";
-  //   console.log(filePath);
-  //   const transforms = [unwind({ paths: ["A", "B"] })];
-  //   const transforms = [flatten({ arrays: true })];
-  const opts = { fields, quote };
-  try {
-    const parser = new Parser(opts);
-    const rawCsv = parser.parse(req.body);
-    console.log(rawCsv);
-    try {
-      fs.writeFile(dataFile, rawCsv, "utf8", function (err) {
-        if (err) return console.log(err);
-        console.log(`Created ${dataFile}`);
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-
-  function Detector(filePath) {
-    this.detector = function (str) {
-      return _addonInstance.learnNormal(str);
-    };
-    var _addonInstance = new cppaddon.Detector();
-    console.log(_addonInstance.learnNormal(filePath));
-  }
-  module.exports = Detector;
-  const instance = new Detector("raw_data.csv");
   let modelID = new Date().getTime();
 
   const modelType = req.query["model_type"];
@@ -221,17 +176,42 @@ app.post("/api/model", (req, res) => {
       }
     );
 
-    let correlatedData = null;
+    const dataFile = path.join(__dirname, "raw_data.csv");
+    fields = [];
+    quote = "";
+    counter = 0;
+    array = [];
 
-    if (modelType === "regression") {
-      console.log("regression model type");
+    //   extract the fields & values from the JSON file
+    Object.keys(req.body).forEach(function (key) {
+      fields[counter] = key;
+      array[counter] = req.body[key];
+      counter++;
+    });
 
-      //TODO: call dll of regression algorithm, and insert correlatedFeatures data into correlatedData
-    } else {
-      console.log("hybrid model type");
-
-      //TODO: call dll of hybrid algorithm, and insert correlatedFeatures data into correlatedData
+    //   transpose rows & cols and append a new line for each row
+    parsedValues = array[0]
+      .map((_, colIndex) => array.map((row) => row[colIndex]))
+      .join("\r\n");
+    fullBody = fields + "\r\n" + parsedValues;
+    console.log(fullBody);
+    // create a csv file containing train data
+    try {
+      fs.writeFile(dataFile, fullBody, "utf8", function (err) {
+        if (err) return console.log(err);
+        console.log(`Created ${dataFile}`);
+      });
+    } catch (err) {
+      console.error(err);
     }
+
+    // train a given model based on the specified detection algorithm
+    // TODO: synchronize the call for TrainModel with dataFile creation
+    detector = new Detector();
+    console.log(detector.TrainModel(dataFile, modelID));
+
+    // @Yuval is still needed?
+    let correlatedData = null;
 
     // //create .csv file for the processed model
     // let modelFile = path.join(__dirname, 'models', model_id + ".csv");
