@@ -4,21 +4,11 @@ const cors = require('cors');
 const csv = require('csvtojson');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cppaddon = require('./addons/cppaddon.node')
 
 const readyStatus = "ready";
 const pendingStatus = "pending";
 const modelsDir = path.join(__dirname, 'models');
 const modelsStatusFile = path.join(__dirname, 'models', 'modelsStatus.csv');
-
-function Detector(filePath,detectorType){
-    this.detector = function(str){
-        return _addonInstance.learnNormal(str);
-    }
-    var _addonInstance = new cppaddon.Detector();
-    console.log(_addonInstance.learnNormal(filePath,detectorType));
-}
-const instance = new Detector("./reg_flight.csv","Hybrid");
 
 try {
     // if models file exists
@@ -47,7 +37,7 @@ const buildPath = __dirname + '/build';
 app.use(express.static(buildPath));
 
 var corsOptions = {
-    origin: `http://localhost:${PORT}`
+    origin: "http://localhost:" + PORT
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
