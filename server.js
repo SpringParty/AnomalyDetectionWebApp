@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 const csv = require('csvtojson');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -40,11 +41,23 @@ try {
     console.error(err);
 }
 
-
-const port = 5000;
+const PORT = 9876;
 const app = express();
+const buildPath = __dirname + '/build';
+app.use(express.static(buildPath));
+
+var corsOptions = {
+    origin: `http://localhost:${PORT}`
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.get('/', (req, res) => {
+    res.send(buildPath + "index.html");
+});
+
 
 app.get('/api/model', (req, res) => {
     const modelID = req.query["model_id"];
@@ -205,4 +218,5 @@ app.post('/api/model', (req, res) => {
     res.status(200).send(`model ${modelID} was created`);
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+
+app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
