@@ -11,7 +11,10 @@ const readyStatus = "ready";
 const pendingStatus = "pending";
 const modelsDir = path.join(__dirname, "models");
 const modelsStatusFile = path.join(__dirname, "models", "modelsStatus.csv");
-const cppaddon = require("./addons/cppaddon.node");
+
+// example of how to call the detector
+// var d = new Detector();
+// console.log(d.Calculate("./reg_flight.csv","./anomaly_flight.csv","regression"))
 
 try {
   // if models file exists
