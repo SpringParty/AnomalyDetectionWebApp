@@ -1,9 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const cors = require("cors");
-const csv = require("csvtojson");
-const express = require("express");
-const bodyParser = require("body-parser");
+const fs = require('fs');
+const path = require('path');
+const cors = require('cors');
+const csv = require('csvtojson');
+const express = require('express');
+const fileupload = require("express-fileupload");
+const bodyParser = require('body-parser');
 const Detector = require("./Detector.js");
 
 const readyStatus = "ready";
@@ -38,7 +39,7 @@ try {
   console.error(err);
 }
 
-const PORT = 9876;
+const PORT = 8080;
 const app = express();
 const buildPath = __dirname + "/build";
 app.use(express.static(buildPath));
@@ -47,104 +48,112 @@ var corsOptions = {
   origin: "http://localhost:" + PORT,
 };
 app.use(cors(corsOptions));
+app.use(fileupload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send(buildPath + "index.html");
+// homepage
+app.get('/', (req, res) => {
+    res.send(buildPath + "index.html");
 });
 
-app.get("/api/model", (req, res) => {
-  const modelID = req.query["model_id"];
-  // if model_id parameter was given
-  if (modelID) {
-    // parse rows of modelsStatus.csv file
-    csv()
-      .fromFile(modelsStatusFile)
-      .then((modelStatusData) => {
-        // for each row in modelsStatus.csv file
-        for (let data of modelStatusData) {
-          // if row's model_id equals to the given parameter
-          if (data.model_id == modelID) {
-            return { statusCode: 200, body: { status: data.status } };
-          }
-        }
-        // if the given model_id does not exist in modelsStatus.csv file
-        return { statusCode: 404, body: { status: "model_id does not exist" } };
-      })
-      // send response to client
-      .then((result) => {
-        res.status(result.statusCode).json(result.body);
-      });
+// get specific model status
+app.get('/api/model', (req, res) => {
+    const modelID = req.query["model_id"];
+    // if model_id parameter was given
+    if (modelID) {
+        // parse rows of modelsStatus.csv file
+        csv()
+            .fromFile(modelsStatusFile)
+            .then((modelStatusData) => {
+                // for each row in modelsStatus.csv file
+                for (let data of modelStatusData) {
+                    // if row's model_id equals to the given parameter
+                    if (data.model_id == modelID) {
+                        return { statusCode: 200, body: { status: data.status } };
+                    }
+                }
+                // if the given model_id does not exist in modelsStatus.csv file
+                return { statusCode: 404, body: { status: 'model_id does not exist' } };
+                
+            })
+            // send response to client
+            .then((result) => {
+                res.status(result.statusCode).json(result.body);
+            })
     // if model_id parameter was not given
   } else {
     res.status(404).json({ status: "model_id was not specified" });
   }
 });
 
-app.get("/api/models", (req, res) => {
-  csv()
-    .fromFile(modelsStatusFile)
-    .then((modelStatusData) => {
-      return { statusCode: 200, body: { models: modelStatusData } };
-    })
-    // send response to client
-    .then((result) => {
-      res.status(result.statusCode).json(result.body);
-    });
-});
+// get all models' statuses
+app.get('/api/models', (req, res) => {
+    csv()
+        .fromFile(modelsStatusFile)
+        .then((modelStatusData) => {
+            return { statusCode: 200, body: { models: modelStatusData } };
+        })
+        // send response to client
+        .then((result) => {
+            res.status(result.statusCode).json(result.body);
+        })
+})
 
-app.delete("/api/model", (req, res) => {
-  let model_id = req.query["model_id"];
-  // parse modelsStatus.csv file
-  fs.readFile(
-    modelsStatusFile,
-    "utf8",
-    function (err, data) {
-      if (!err) {
-        // get lines of the .csv file, and split them by ','
-        let lines = data.split("\n");
-        let linesArr = lines.map((line) => line.split(","));
-        // filter out the line with the given model_id
-        let output = linesArr.filter((line) => line[0] != model_id).join("\n");
+// delete sepceific model, by model_id
+app.delete('/api/model', (req, res) => {    
+    let model_id = req.query["model_id"];
+    console.log(req);
+    
+    // parse modelsStatus.csv file
+    fs.readFile(modelsStatusFile, 'utf8', function(err, data) {
+        if (!err) {
+            // get lines of the .csv file, and split them by ','
+            let lines = data.split('\n')
+            let linesArr = lines.map(line=>line.split(','));
+            // filter out the line with the given model_id
+            let output = linesArr.filter(line=>line[0] != model_id).join("\n");
+            
+            // if a line was removed
+            if (data != output) {
+                // remove the relevant line from the .csv file
+                fs.writeFileSync(modelsStatusFile, output);
+                // remove the file from the directory
+                let modelCsvFile = path.join(__dirname, 'models', model_id + ".csv");
 
-        // if a line was removed
-        if (data != output) {
-          // remove the relevant line from the .csv file
-          fs.writeFileSync(modelsStatusFile, output);
-          // remove the file from the directory
-          let modelCsvFile = path.join(__dirname, "models", model_id + ".csv");
+                // if model's file exist
+                if (fs.existsSync(modelCsvFile)) {
+                    // delete file from folder
+                    fs.unlink(modelCsvFile, (err) => {
+                        if (err) console.log(`Could not delete file ${modelCsvFile}. `, err);
+                        console.log(`successfully deleted file ${modelCsvFile}`)
+                    });
+                }
 
-          // if model's file exist
-          if (fs.existsSync(modelCsvFile)) {
-            // delete file from folder
-            fs.unlink(modelCsvFile, (err) => {
-              if (err)
-                console.log(`Could not delete file ${modelCsvFile}. `, err);
-              console.log(`successfully deleted file ${modelCsvFile}`);
-            });
-          }
-
-          res.status(200).send(`Deleted model_id ${model_id}`);
+                res.status(200).json(`Deleted model_id ${model_id}`);
+                // res.status(200).send(`Deleted model_id ${model_id}`);
+            } else {
+                res.status(404).json(`model_id ${model_id} does not exist`);
+                // res.status(404).send(`model_id ${model_id} does not exist`);
+            }
         } else {
-          res.status(404).send(`model_id ${model_id} does not exist`);
+            res.status(404).json();
+            // res.status(404).send();
         }
-      } else {
-        res.status(404).send();
-      }
-    },
-    res
-  );
-
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`
-  );
+    }, res);
 });
 
 app.post("/api/model", (req, res) => {
   let modelID = new Date().getTime();
 
-  const modelType = req.query["model_type"];
+console.log(req.files.model);
+    if (!req.files.model) {
+        return;
+    }
+    const modelData = req.files.model.data.toString('utf8');
+    console.log(modelData);  
+
+const modelType = req.query["model_type"];
   if (modelType !== "regression" && modelType !== "hybrid") {
     res.status(404).send(`Illegal model type`);
     return;
