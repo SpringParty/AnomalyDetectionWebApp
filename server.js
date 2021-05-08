@@ -7,14 +7,9 @@ const fileupload = require("express-fileupload");
 const bodyParser = require('body-parser');
 const Detector = require("./Detector.js");
 
-const readyStatus = "ready";
-const pendingStatus = "pending";
-const modelsDir = path.join(__dirname, "models");
+// const modelsDir = path.join(__dirname, "models");
+const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
 const modelsStatusFile = path.join(__dirname, "models", "modelsStatus.csv");
-
-// example of how to call the detector
-// var d = new Detector();
-// console.log(d.Calculate("./reg_flight.csv","./anomaly_flight.csv","regression"))
 
 // if models folder does not exist
 try {
@@ -27,37 +22,12 @@ try {
 }
 
 
-
-
-try {
-  // if models file exists
-  if (fs.existsSync(modelsStatusFile)) {
-    console.log(`${modelsStatusFile} already exists`);
-    // if models file does not exist
-  } else {
-    // if models folder does not exist
-    
-    // try to create the file
-    fs.writeFile(
-      modelsStatusFile,
-      "model_id,upload_time,status\n",
-      "utf8",
-      function (err) {
-        if (err) return console.log(err);
-        console.log(`Created ${modelsStatusFile}`);
-      }
-    );
-  }
-} catch (err) {
-  console.error(err);
-}
-
 const PORT = 8080;
 const app = express();
 const buildPath = __dirname + "/build";
 app.use(express.static(buildPath));
 
-var corsOptions = {
+const corsOptions = {
   origin: "http://localhost:" + PORT,
 };
 app.use(cors(corsOptions));
@@ -72,33 +42,40 @@ app.get('/', (req, res) => {
 
 // POST command of detect
 app.post("/api/detect", (req, res) => {
+    let data = [];
+
     const modelType = req.query["model_type"];
+    // if no correct modelType was specified
     if (modelType !== "regression" && modelType !== "hybrid") {
-        res.status(404).send(`Illegal model type`);
+        res.status(405).send(`please specify model_type from the following options: regression, hybrid`);
         return;
     } else {
         let modelID = new Date().getTime();
-
+        // if no model file was specified
         if (!req.files.model) {
-            res.status(404).send(`model file was not specified`);
+            res.status(405).send(`model file was not specified`);
             return;
         }
-
+        
+        // if more than 1 model file was specified
         if (req.files.model.length > 1) {
-            res.status(404).send(`please specify only 1 model file`);
+            res.status(405).send(`please specify only 1 model file`);
             return;
         }
-    
+
+        // if no anomaly file was specified
         if (!req.files.anomaly) {
-            res.status(404).send(`anomaly file was not specified`);
+            res.status(405).send(`anomaly file was not specified`);
             return;
         }
 
+        // if more than 1 anomaly file was specified
         if (req.files.anomaly.length > 1) {
-            res.status(404).send(`please specify only 1 anomaly file`);
+            res.status(405).send(`please specify only 1 anomaly file`);
             return;
         }
-
+        
+        // upload csv files to project's directory
         const modelData = req.files.model.data.toString('utf8');
         const anomalyData = req.files.anomaly.data.toString('utf8');
 
@@ -108,12 +85,21 @@ app.post("/api/detect", (req, res) => {
         createCsvFile(modelFile, modelData);
         createCsvFile(anomalyFile, anomalyData);
 
-        // if modelType is regression
-        if (modelType == "regression") {
-
-        // if modelType is hybrid
-        } else {
-
+        // detect anomalies
+        detector = new Detector();
+        detectedData = detector.Calculate(modelFile, anomalyFile, modelType);
+        
+        // parse anomalies into array of json
+        detectedData = detectedData.split("\n");        
+        for (i = 0; i < detectedData.length - 1; i++) {            
+            line = detectedData[i].replace('[', '').replace(']', '').split(",");
+            line = {
+                feature: line[0],
+                corrFeature: line[1],
+                fromLine: line[2],
+                toLine: line[3]
+            };
+            data.push(line);
         }
 
         // delete uploaded csv files
@@ -121,10 +107,15 @@ app.post("/api/detect", (req, res) => {
         deleteCsvFile(anomalyFile);
     }
 
-    res.status(200).send();
+    res.status(200).send(data);
 });
     
-
+/**
+ * upload csv file into the server's directory
+ * @param {*} filePath - where the file should be uploaded to.
+ * @param {*} fileData - the content to write into the file.
+ * @returns None.
+ */
 function createCsvFile(filePath, fileData) {
     try {
         fs.writeFileSync(filePath, fileData, "utf8");
@@ -134,7 +125,10 @@ function createCsvFile(filePath, fileData) {
     }
 }
 
-
+/**
+ * delete csv file from server's directory
+ * @param {*} filePath - where the file should be deleted from.
+ */
 function deleteCsvFile(filePath) {
     if (fs.existsSync(filePath)) {
         // delete file from folder
