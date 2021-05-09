@@ -8,9 +8,6 @@ const bodyParser = require("body-parser");
 const Detector = require("./Detector.js");
 
 const modelsDir = path.join(__dirname, "models");
-// const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
-const modelsStatusFile = path.join(__dirname, "models", "modelsStatus.csv");
-
 // if models folder does not exist
 try {
   if (!fs.existsSync(modelsDir)) {
