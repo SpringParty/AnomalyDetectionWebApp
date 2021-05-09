@@ -43,11 +43,7 @@ app.post("/api/detect", (req, res) => {
   const modelType = req.query["model_type"];
   // if no correct modelType was specified
   if (modelType !== "regression" && modelType !== "hybrid") {
-    res
-      .status(422)
-      .send(
-        `please specify model_type from the following options: regression, hybrid`
-      );
+    res.status(422).send(`please specify model_type from the following options: regression, hybrid`);
     return;
   } else {
     let modelID = new Date().getTime();
