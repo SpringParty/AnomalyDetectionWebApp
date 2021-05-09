@@ -1,0 +1,15 @@
+{
+  "name": "cppaddon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --napi-modules ./test/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-addon-api": "^3.1.0",
+    "node-gyp": "^8.0.0"
+  }
+}

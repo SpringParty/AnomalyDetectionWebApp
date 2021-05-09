@@ -1,4 +1,4 @@
-const cppaddon = require('./addons/cppaddon.node')
+const cppaddon = require("./detector-addon/build/Release/cppaddon.node")
 
 class Detector {
     constructor(){}
