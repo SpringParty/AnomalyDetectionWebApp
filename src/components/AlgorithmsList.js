@@ -22,7 +22,7 @@ export default function AlgorithmsList() {
   const [chosen, setChosen] = React.useState("select");
 
   /**
-   *
+   * Modify chosen based on a received event.
    * @param {*} event - the item from the DropDown that was selected
    */
   const onClickHandler = (event) => {
