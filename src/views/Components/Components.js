@@ -13,6 +13,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
+import AlgorithmsList from "components/AlgorithmsList.js";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionBasics from "./Sections/SectionBasics.js";
@@ -43,12 +44,14 @@ export default function Components(props) {
             <GridItem>
               <div className={classes.brand}>
                 <h1 className={classes.title}>Anomaly Detection Server</h1>
-                <h3 className={classes.subtitle}>by Matan, Yuval and Noam</h3>
               </div>
             </GridItem>
           </GridContainer>
         </div>
       </Parallax>
+      <div className={classNames(classes.main, classes.mainRaised)}>
+        <AlgorithmsList />
+      </div>
     </div>
   );
 }
