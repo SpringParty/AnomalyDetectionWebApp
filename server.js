@@ -1,13 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
-const csv = require("csvtojson");
 const express = require("express");
-const fileupload = require("express-fileupload");
 const bodyParser = require("body-parser");
+const fileupload = require("express-fileupload");
 const Detector = require("./Detector.js");
 
-const modelsDir = path.join(__dirname, "models");
+const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
+// const modelsDir = path.join(__dirname, "models");
 // if models folder does not exist
 try {
   if (!fs.existsSync(modelsDir)) {
@@ -40,13 +40,15 @@ app.get("/", (req, res) => {
 app.post("/api/detect", (req, res) => {
   let data = [];
 
+  console.log(req);
+
   const modelType = req.query["model_type"];
   // if no correct modelType was specified
   if (modelType !== "regression" && modelType !== "hybrid") {
     res.status(422).send(`please specify model_type from the following options: regression, hybrid`);
     return;
   } else {
-    let modelID = new Date().getTime();
+    let modelID = new Date().getTime();    
     // if no model file was specified, send Unprocessable Entity status code
     if (!req.files.model) {
       res.status(422).send(`model file was not specified`);
