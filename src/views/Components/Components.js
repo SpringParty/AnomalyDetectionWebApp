@@ -50,7 +50,13 @@ export default function Components(props) {
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <AlgorithmsList />
+        <div className={classes.container}>
+          <GridContainer className={classes.textCenter}>
+            <GridItem>
+              <AlgorithmsList />
+            </GridItem>
+          </GridContainer>
+        </div>
       </div>
     </div>
   );
