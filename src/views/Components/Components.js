@@ -14,6 +14,7 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
 import AlgorithmsList from "components/AlgorithmsList.js";
+import UploadButton from 'components/UploadButton'
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionBasics from "./Sections/SectionBasics.js";
@@ -45,12 +46,17 @@ export default function Components(props) {
               <div className={classes.brand}>
                 <h1 className={classes.title}>Anomaly Detection Server</h1>
               </div>
-            </GridItem>
+            </GridItem>           
           </GridContainer>
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <AlgorithmsList />
+        <GridContainer>
+          <GridContainer xs={2}></GridContainer>
+          <UploadButton text={"Upload Model File"} inputText={"Model Path"}/>
+          <UploadButton text={"Upload Anomaly File"}  inputText={"Anomaly Path"}/>
+        </GridContainer>
       </div>
     </div>
   );
