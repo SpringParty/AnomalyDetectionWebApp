@@ -18,23 +18,23 @@ try {
   console.error(err);
 }
 
-const PORT = 8080;
+const PORT = 5000;
 const app = express();
-const buildPath = __dirname + "/build";
-app.use(express.static(buildPath));
+// const buildPath = __dirname + "/build";
+// app.use(express.static(buildPath));
 
-const corsOptions = {
-  origin: "http://localhost:" + PORT,
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+// origin: "http://localhost:" + PORT,
+// };
+// app.use(cors(corsOptions));
 app.use(fileupload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// homepage
-app.get("/", (req, res) => {
-  res.send(buildPath + "index.html");
-});
+// // homepage
+// app.get("/", (req, res) => {
+//   res.send(buildPath + "index.html");
+// });
 
 // POST command of detect
 app.post("/api/detect", (req, res) => {
@@ -45,7 +45,11 @@ app.post("/api/detect", (req, res) => {
   const modelType = req.query["model_type"];
   // if no correct modelType was specified
   if (modelType !== "regression" && modelType !== "hybrid") {
-    res.status(422).send(`please specify model_type from the following options: regression, hybrid`);
+    res
+      .status(422)
+      .send(
+        `please specify model_type from the following options: regression, hybrid`
+      );
     return;
   } else {
     let modelID = new Date().getTime();    
