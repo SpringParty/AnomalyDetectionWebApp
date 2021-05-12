@@ -32,34 +32,15 @@ import SectionDownload from "./Sections/SectionDownload.js";
 import image1 from "assets/img/background.jpg";
 
 import styles from "assets/jss/material-kit-react/views/components.js";
+import DetectButton from "components/DetectButton.js";
 
 const useStyles = makeStyles(styles);
 
 export default function Components(props) {
   const classes = useStyles();
-  const files = [{
-    fileType: "model",
-    fileObj: null,
-    fileName: null
-  },
-  {
-    fileType: "anomaly",
-    fileObj: null,
-    fileName: null
-  }]
-
-  const modelFileHandler = modelData => {    
-    files[0].fileObj = modelData;
-    files[0].fileName = modelData.name;
-    console.log(files);
-  }
-
-  const anomalyFileHandler = anomalyData => {    
-    files[1].fileObj = anomalyData;
-    files[1].fileName = anomalyData.name;    
-    console.log(files);
-  }
-
+  const [algorithm,setAlgorithm] = React.useState("select");  
+  const [modelFile,setModelFile] = React.useState(null);  
+  const [anomalyFile,setAnomalyFile] = React.useState(null);  
   return (
     <div>
       <Parallax image={image1}>
@@ -78,10 +59,11 @@ export default function Components(props) {
         <div className={classes.container}>
           <GridContainer className={classes.textCenter}>
             <GridItem>
-              <AlgorithmsList />
+              <AlgorithmsList setAlgorithm={setAlgorithm} algorithm={algorithm} />
             </GridItem>
-          <UploadButton buttonText={"Upload Model File"} inputText={"Model Path"} onChange={modelFileHandler}/>
-          <UploadButton buttonText={"Upload Anomaly File"}  inputText={"Anomaly Path"} onChange={anomalyFileHandler}/>
+          <UploadButton buttonText={"Upload Model File"} fieldText={"Model Path"} setFile={setModelFile}/>
+          <UploadButton buttonText={"Upload Anomaly File"} fieldText={"Anomaly Path"} setFile={setAnomalyFile}/>
+          <DetectButton algorithm={algorithm} />
         </GridContainer>
         </div>
       </div>

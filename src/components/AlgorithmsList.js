@@ -18,50 +18,16 @@ const useStyles = makeStyles(styles);
 /**
  * @returns DropDown list of algorithms.
  */
-export default function AlgorithmsList() {
-  const [snackPack, setSnackPack] = React.useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [messageInfo, setMessageInfo] = React.useState(undefined);
-
-  React.useEffect(() => {
-    if (snackPack.length && !messageInfo) {
-      // Set a new snack when we don't have an active one
-      setMessageInfo({ ...snackPack[0] });
-      setSnackPack((prev) => prev.slice(1));
-      setOpen(true);
-    } else if (snackPack.length && messageInfo && open) {
-      // Close an active snack when a new one is added
-      setOpen(false);
-    }
-  }, [snackPack, messageInfo, open]);
+export default function AlgorithmsList({algorithm,setAlgorithm}) {
 
   const classes = useStyles();
-  // set the default value of chosen to "select"
-  const [chosen, setChosen] = React.useState("select");
 
   /**
    * Modify chosen based on a received event.
    * @param {*} event - the item from the DropDown that was selected
    */
   const dropdownOnClickHandler = (event) => {
-    setChosen(event);
-  };
-
-  const buttonOnClickHandler = (message) => () => {
-    if (chosen == "select") {
-      setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }]);
-    }
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
-  const handleExited = () => {
-    setMessageInfo(undefined);
+    setAlgorithm(event);
   };
 
   return (
@@ -79,7 +45,7 @@ export default function AlgorithmsList() {
                 <List className={classes.list}>
                   <ListItem className={classes.listItem}>
                     <CustomDropdown
-                      buttonText={chosen}
+                      buttonText={algorithm}
                       hoverColor="info"
                       dropdownHeader="Algorithms List"
                       buttonProps={{
@@ -94,39 +60,8 @@ export default function AlgorithmsList() {
               }
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={12} justify="left">
-            <Button
-              color="info"
-              onClick={buttonOnClickHandler(
-                <span>
-                  <b>NO ALGORITHM WAS SELECTED:</b> Please select an algorithm
-                  before clicking DETECT
-                </span>
-              )}
-            >
-              Detect
-            </Button>
-          </GridItem>
-        </GridContainer>
-        <Snackbar
-          key={messageInfo ? messageInfo.key : undefined}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          open={open}
-          onClose={handleClose}
-          onExited={handleExited}
-          color="danger"
-          message={messageInfo ? messageInfo.message : undefined}
-          action={
-            <React.Fragment>
-              <Button icon round color="rose" size="sm" onClick={handleClose}>
-                OK
-              </Button>
-            </React.Fragment>
-          }
-        />
+          
+        </GridContainer>        
       </div>
     </div>
   );
