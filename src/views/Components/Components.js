@@ -51,12 +51,19 @@ export default function Components(props) {
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <AlgorithmsList />
-        <GridContainer>
+
+        <div className={classes.container}>
+          <GridContainer className={classes.textCenter}>
+            <GridItem>
+              <AlgorithmsList />
+            </GridItem>
+          </GridContainer>
+          <GridContainer>
           <GridContainer xs={2}></GridContainer>
           <UploadButton text={"Upload Model File"} inputText={"Model Path"}/>
           <UploadButton text={"Upload Anomaly File"}  inputText={"Anomaly Path"}/>
         </GridContainer>
+        </div>
       </div>
     </div>
   );
