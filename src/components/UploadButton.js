@@ -1,11 +1,18 @@
-import React, { Component, useRef } from "react";
+import React from "react";
 import Button from "components/CustomButtons/Button.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
+// @material-ui/core components
+import { makeStyles } from "@material-ui/core/styles";
 import { TextField } from "@material-ui/core";
 
-export default function UploadButton({buttonText, fieldText, setFile}) {
+import styles from "assets/jss/material-kit-react/components/customInputStyle.js";
+
+const useStyles = makeStyles(styles);
+
+export default function UploadButton({ buttonText, fieldText, setFile }) {
+  const classes = useStyles();
+
   const fileInput = React.createRef();
   const costumInputText = React.createRef();
   const [FileName, setFileName] = React.useState(null);
@@ -22,16 +29,16 @@ export default function UploadButton({buttonText, fieldText, setFile}) {
     <form>
       <GridContainer>
         <GridContainer>
-          <GridItem xs={6}>
+          <GridItem>
             <TextField
-              label={fieldText}
+              // label={fieldText}
               formControlProps={{ fullWidth: true }}
               inputProps={{ readOnly: true }}
               ref={costumInputText}
               value={FileName}
             />
           </GridItem>
-          <GridItem xs={6}>
+          <GridItem>
             <input
               type="file"
               id="fileUpload"

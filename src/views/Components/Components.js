@@ -14,7 +14,7 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
 import AlgorithmsList from "components/AlgorithmsList.js";
-import UploadButton from 'components/UploadButton'
+import UploadButton from "components/UploadButton";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionBasics from "./Sections/SectionBasics.js";
@@ -38,9 +38,9 @@ const useStyles = makeStyles(styles);
 
 export default function Components(props) {
   const classes = useStyles();
-  const [algorithm,setAlgorithm] = React.useState("select");  
-  const [modelFile,setModelFile] = React.useState(null);  
-  const [anomalyFile,setAnomalyFile] = React.useState(null);  
+  const [algorithm, setAlgorithm] = React.useState("select");
+  const [modelFile, setModelFile] = React.useState(null);
+  const [anomalyFile, setAnomalyFile] = React.useState(null);
   return (
     <div>
       <Parallax image={image1}>
@@ -50,21 +50,41 @@ export default function Components(props) {
               <div className={classes.brand}>
                 <h1 className={classes.title}>Anomaly Detection Server</h1>
               </div>
-            </GridItem>           
+            </GridItem>
           </GridContainer>
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
-
         <div className={classes.container}>
-          <GridContainer className={classes.textCenter}>
-            <GridItem>
-              <AlgorithmsList setAlgorithm={setAlgorithm} algorithm={algorithm} />
+          <GridContainer className={classes.textCenter} xs={12}>
+            <GridItem className={classes.matan}>
+              <AlgorithmsList
+                setAlgorithm={setAlgorithm}
+                algorithm={algorithm}
+              />
             </GridItem>
-          <UploadButton buttonText={"Upload Model File"} fieldText={"Model Path"} setFile={setModelFile}/>
-          <UploadButton buttonText={"Upload Anomaly File"} fieldText={"Anomaly Path"} setFile={setAnomalyFile}/>
-          <DetectButton algorithm={algorithm} />
-        </GridContainer>
+            <GridItem md={3} className={classes.yuval}>
+              <UploadButton
+                buttonText={"Upload Model File"}
+                fieldText={"Model Path"}
+                setFile={setModelFile}
+              />
+            </GridItem>
+            <GridItem md={3} className={classes.noam}>
+              <UploadButton
+                buttonText={"Upload Anomaly File"}
+                fieldText={"Anomaly Path"}
+                setFile={setAnomalyFile}
+              />
+            </GridItem>
+            <GridItem>
+              <DetectButton
+                algorithm={algorithm}
+                modelFile={modelFile}
+                anomalyFile={anomalyFile}
+              />
+            </GridItem>
+          </GridContainer>
         </div>
       </div>
     </div>

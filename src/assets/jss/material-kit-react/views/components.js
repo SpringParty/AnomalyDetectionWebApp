@@ -36,6 +36,17 @@ const componentsStyle = {
   textCenter: {
     textAlign: "center",
   },
+  yuval: {
+    marginLeft: "auto",
+    marginRight: "0px",
+  },
+  noam: {
+    marginLeft: "0px",
+    marginRight: "auto",
+  },
+  matan: {
+    margin: "auto",
+  },
 };
 
 export default componentsStyle;

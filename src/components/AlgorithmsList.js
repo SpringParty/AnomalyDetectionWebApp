@@ -5,11 +5,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
-import Snackbar from "@material-ui/core/Snackbar";
 import GridItem from "components/Grid/GridItem.js";
 import Header from "components/Header/Header.js";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
-import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
 
@@ -18,8 +16,7 @@ const useStyles = makeStyles(styles);
 /**
  * @returns DropDown list of algorithms.
  */
-export default function AlgorithmsList({algorithm,setAlgorithm}) {
-
+export default function AlgorithmsList({ algorithm, setAlgorithm }) {
   const classes = useStyles();
 
   /**
@@ -33,8 +30,8 @@ export default function AlgorithmsList({algorithm,setAlgorithm}) {
   return (
     <div className={classes.section}>
       <div className={classes.container}>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
+        <GridContainer xs={12} sm={12} md={12}>
+          <GridItem>
             <div className={classes.title}>
               <h4>Choose an Anomaly Detection Algorithm:</h4>
             </div>
@@ -47,10 +44,10 @@ export default function AlgorithmsList({algorithm,setAlgorithm}) {
                     <CustomDropdown
                       buttonText={algorithm}
                       hoverColor="info"
-                      dropdownHeader="Algorithms List"
                       buttonProps={{
                         className: classes.navLink,
                         color: "transparent",
+                        size: "lg",
                       }}
                       dropdownList={["Linear Regression", "Hybrid"]}
                       onClick={dropdownOnClickHandler}
@@ -60,8 +57,7 @@ export default function AlgorithmsList({algorithm,setAlgorithm}) {
               }
             />
           </GridItem>
-          
-        </GridContainer>        
+        </GridContainer>
       </div>
     </div>
   );

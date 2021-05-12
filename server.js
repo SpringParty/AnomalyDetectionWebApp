@@ -6,8 +6,8 @@ const bodyParser = require("body-parser");
 const fileupload = require("express-fileupload");
 const Detector = require("./Detector.js");
 
-const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
-// const modelsDir = path.join(__dirname, "models");
+// const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
+const modelsDir = path.join(__dirname, "models");
 // if models folder does not exist
 try {
   if (!fs.existsSync(modelsDir)) {
@@ -52,7 +52,7 @@ app.post("/api/detect", (req, res) => {
       );
     return;
   } else {
-    let modelID = new Date().getTime();    
+    let modelID = new Date().getTime();
     // if no model file was specified, send Unprocessable Entity status code
     if (!req.files.model) {
       res.status(422).send(`model file was not specified`);
