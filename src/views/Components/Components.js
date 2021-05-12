@@ -37,6 +37,29 @@ const useStyles = makeStyles(styles);
 
 export default function Components(props) {
   const classes = useStyles();
+  const files = [{
+    fileType: "model",
+    fileObj: null,
+    fileName: null
+  },
+  {
+    fileType: "anomaly",
+    fileObj: null,
+    fileName: null
+  }]
+
+  const modelFileHandler = modelData => {    
+    files[0].fileObj = modelData;
+    files[0].fileName = modelData.name;
+    console.log(files);
+  }
+
+  const anomalyFileHandler = anomalyData => {    
+    files[1].fileObj = anomalyData;
+    files[1].fileName = anomalyData.name;    
+    console.log(files);
+  }
+
   return (
     <div>
       <Parallax image={image1}>
@@ -57,11 +80,8 @@ export default function Components(props) {
             <GridItem>
               <AlgorithmsList />
             </GridItem>
-          </GridContainer>
-          <GridContainer>
-          <GridContainer xs={2}></GridContainer>
-          <UploadButton buttonText={"Upload Model File"} inputText={"Model Path"}/>
-          <UploadButton buttonText={"Upload Anomaly File"}  inputText={"Anomaly Path"}/>
+          <UploadButton buttonText={"Upload Model File"} inputText={"Model Path"} onChange={modelFileHandler}/>
+          <UploadButton buttonText={"Upload Anomaly File"}  inputText={"Anomaly Path"} onChange={anomalyFileHandler}/>
         </GridContainer>
         </div>
       </div>
