@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
