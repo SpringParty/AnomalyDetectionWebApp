@@ -1,18 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 import { TextField } from "@material-ui/core";
 
-import styles from "assets/jss/material-kit-react/components/customInputStyle.js";
-
-const useStyles = makeStyles(styles);
-
-export default function UploadButton({ buttonText, fieldText, setFile }) {
-  const classes = useStyles();
-
+export default function UploadButton({ buttonText, setFile }) {
   const fileInput = React.createRef();
   const costumInputText = React.createRef();
   const [FileName, setFileName] = React.useState(null);

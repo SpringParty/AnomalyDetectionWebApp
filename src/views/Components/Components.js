@@ -41,6 +41,8 @@ export default function Components(props) {
   const [algorithm, setAlgorithm] = React.useState("select");
   const [modelFile, setModelFile] = React.useState(null);
   const [anomalyFile, setAnomalyFile] = React.useState(null);
+  const [anomalyData, setAnomalyData] = React.useState(null);
+
   return (
     <div>
       <Parallax image={image1}>
@@ -82,6 +84,7 @@ export default function Components(props) {
                 algorithm={algorithm}
                 modelFile={modelFile}
                 anomalyFile={anomalyFile}
+                setAnomalyData={setAnomalyData}
               />
             </GridItem>
           </GridContainer>
