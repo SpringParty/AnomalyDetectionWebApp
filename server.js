@@ -123,7 +123,7 @@ function createCsvFile(filePath, fileData) {
     fs.writeFileSync(filePath, fileData, "utf8");
     console.log(`Successfully created file ${filePath}`);
   } catch (err) {
-    return console.log(err);
+    return console.error(err);
   }
 }
 
