@@ -60,8 +60,8 @@ export default function Components(props) {
           </GridContainer>
           <GridContainer>
           <GridContainer xs={2}></GridContainer>
-          <UploadButton text={"Upload Model File"} inputText={"Model Path"}/>
-          <UploadButton text={"Upload Anomaly File"}  inputText={"Anomaly Path"}/>
+          <UploadButton buttonText={"Upload Model File"} inputText={"Model Path"}/>
+          <UploadButton buttonText={"Upload Anomaly File"}  inputText={"Anomaly Path"}/>
         </GridContainer>
         </div>
       </div>
