@@ -14,7 +14,8 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
 import AlgorithmsList from "components/AlgorithmsList.js";
-import UploadButton from "components/UploadButton";
+import UploadButton from "components/UploadButton.js";
+import AnomalyTable from "components/AnomalyTable.js";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionBasics from "./Sections/SectionBasics.js";
@@ -86,8 +87,11 @@ export default function Components(props) {
                 anomalyFile={anomalyFile}
                 setAnomalyData={setAnomalyData}
               />
+            </GridItem>            
+            <GridItem>              
+              <AnomalyTable anomalyData={anomalyData} />
             </GridItem>
-          </GridContainer>
+          </GridContainer>          
         </div>
       </div>
     </div>

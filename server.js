@@ -11,8 +11,7 @@ const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
 // if models folder does not exist
 try {
   if (!fs.existsSync(modelsDir)) {
-    fs.mkdirSync(modelsDir);
-    console.log(`Created ${modelsDir}`);
+    fs.mkdirSync(modelsDir);    
   }
 } catch (err) {
   console.error(err);
@@ -119,8 +118,7 @@ app.post("/api/detect", (req, res) => {
  */
 function createCsvFile(filePath, fileData) {
   try {
-    fs.writeFileSync(filePath, fileData, "utf8");
-    console.log(`Successfully uploaded file ${filePath} to server`);
+    fs.writeFileSync(filePath, fileData, "utf8");    
   } catch (err) {
     return console.error(err);
   }
@@ -135,7 +133,6 @@ function deleteCsvFile(filePath) {
     // delete file from folder
     fs.unlink(filePath, (err) => {
       if (err) console.err(`Could not delete file ${filePath} from server.`, err);
-      console.log(`successfully deleted file ${filePath} from server`);
     });
   }
 }

@@ -37,7 +37,6 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
       axios.post("api/detect?model_type=" + algorithm, formData)
       .then((data) => {
         setAnomalyData(data);
-        console.log(data);
       });
     };
 
