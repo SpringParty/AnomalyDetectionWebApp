@@ -101,7 +101,7 @@ To view the detailed hierarchy, expand the sections below:
 3. Open cmd from the repo's folder and run the following command: `npm start`
 
 ## 📚 Further Documentation
-For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our Wiki Site.
+For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our [Wiki Site](https://github.com/SpringParty/AnomalyDetectionWebApp/wiki).
 
 ## 🎥 Demo
 
