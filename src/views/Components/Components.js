@@ -42,7 +42,8 @@ export default function Components(props) {
   const [algorithm, setAlgorithm] = React.useState("select");
   const [modelFile, setModelFile] = React.useState(null);
   const [anomalyFile, setAnomalyFile] = React.useState(null);
-  const [anomalyData, setAnomalyData] = React.useState(null);
+  const [anomalyData, setAnomalyData] = React.useState(null);  
+  const [renderAnomalyData, setRenderAnomalyData] = React.useState(false);
 
   return (
     <div>
@@ -86,10 +87,15 @@ export default function Components(props) {
                 modelFile={modelFile}
                 anomalyFile={anomalyFile}
                 setAnomalyData={setAnomalyData}
+                setRenderedData={setRenderAnomalyData}
               />
             </GridItem>            
             <GridItem>              
-              <AnomalyTable anomalyData={anomalyData} />
+              <AnomalyTable 
+                anomalyData={anomalyData}
+                setRenderedData={setRenderAnomalyData}
+                renderedData={renderAnomalyData}
+                 />
             </GridItem>
           </GridContainer>          
         </div>

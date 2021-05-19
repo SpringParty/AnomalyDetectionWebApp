@@ -11,7 +11,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-
+import Notification from "./Notification.js";
+import { SnackbarProvider } from "notistack";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -125,7 +126,7 @@ function EnhancedTableHead(props) {
           </StyledTableCell>
         ))}
       </TableRow>
-    </TableHead>
+    </TableHead>      
   );
 }
 
@@ -139,11 +140,11 @@ EnhancedTableHead.propTypes = {
 
 
 
-export default function AnomalyTable({ anomalyData }) {
+export default function AnomalyTable({ anomalyData, renderedData, setRenderedData }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('startTime');
-  const [selected, setSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState([]);  
   const [page, setPage] = React.useState(0);  
   const rowsPerPage = 10;
 
@@ -160,7 +161,7 @@ export default function AnomalyTable({ anomalyData }) {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
     let rows = [];
-    if (anomalyData != undefined) {        
+    if (anomalyData != undefined) {
         for (let i = 0; i < anomalyData.data.length; i++) {
             rows.push({
                 rowid: i,
@@ -236,7 +237,27 @@ export default function AnomalyTable({ anomalyData }) {
           page={page}
           onChangePage={handleChangePage}          
         />
-      </Paper>      
+      </Paper>
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      >
+        <Notification
+          data={""}
+          errorData={""}
+          message={
+            <span>
+              <b>Data was retrieved</b>
+            </span>
+          }
+          click={renderedData}
+          setClick={setRenderedData}
+          notificationType={"success"}
+        />
+      </SnackbarProvider>
     </div>
   );
 }

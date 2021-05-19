@@ -7,6 +7,7 @@ export default function Notification({
   message,
   click,
   setClick,
+  notificationType
 }) {
   const { enqueueSnackbar } = useSnackbar();
 
@@ -14,7 +15,7 @@ export default function Notification({
     if (click) {
       if (data == errorData) {
         enqueueSnackbar(message, {
-          variant: "warning",
+          variant: notificationType,
           autoHideDuration: 6000,
           preventDuplicate: true,
         });

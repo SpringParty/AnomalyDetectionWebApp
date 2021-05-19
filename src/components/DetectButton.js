@@ -7,7 +7,7 @@ import Button from "components/CustomButtons/Button.js";
 import Notification from "./Notification.js";
 import { SnackbarProvider } from "notistack";
 
-export default function DetectButton({ algorithm, modelFile, anomalyFile, setAnomalyData}) {
+export default function DetectButton({ algorithm, modelFile, anomalyFile, setAnomalyData, setRenderedData }) {
   const [click, setClick] = React.useState(false);
 
   const buttonOnClickHandler = () => {
@@ -35,6 +35,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
       axios.post("api/detect?model_type=" + algorithm, formData)
       .then((data) => {
         setAnomalyData(data);
+        setRenderedData(true);
       });
     };
 
@@ -66,6 +67,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
           }
           click={click}
           setClick={setClick}
+          notificationType={"warning"}
         />
         <Notification
           data={modelFile}
@@ -77,6 +79,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
           }
           click={click}
           setClick={setClick}
+          notificationType={"warning"}
         />
         <Notification
           data={anomalyFile}
@@ -88,6 +91,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
           }
           click={click}
           setClick={setClick}
+          notificationType={"warning"}
         />
       </SnackbarProvider>
     </div>
