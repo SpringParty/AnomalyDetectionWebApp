@@ -149,4 +149,4 @@ Further documentation regarding the project's UML can be found [here](https://gi
 For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our [Wiki Site](https://github.com/SpringParty/AnomalyDetectionWebApp/wiki).
 
 ## 🎥 Demo
-Our demo video
+[Our demo video](https://youtu.be/D23w01bhofc)
