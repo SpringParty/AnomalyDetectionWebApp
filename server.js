@@ -6,8 +6,8 @@ const bodyParser = require("body-parser");
 const fileupload = require("express-fileupload");
 const Detector = require("./Detector.js");
 
-// const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
-const modelsDir = path.join(__dirname, "models");
+const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
+// const modelsDir = path.join(__dirname, "models");
 // if models folder does not exist
 try {
   if (!fs.existsSync(modelsDir)) {
@@ -17,15 +17,15 @@ try {
   console.error(err);
 }
 
-const PORT = 8080;
+const PORT = 5000;
 const app = express();
-const buildPath = __dirname + "/build";
-app.use(express.static(buildPath));
+// const buildPath = __dirname + "/build";
+// app.use(express.static(buildPath));
 
-const corsOptions = {
-origin: "http://localhost:" + PORT,
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+// origin: "http://localhost:" + PORT,
+// };
+// app.use(cors(corsOptions));
 app.use(fileupload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

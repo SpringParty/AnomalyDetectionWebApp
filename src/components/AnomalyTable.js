@@ -56,7 +56,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function descendingComparator(a, b, orderBy) {
+function descendingComparator(a, b, orderBy) {  
+  if (headCells.find(x=> x.id === orderBy).numeric) {
+    return a[orderBy] - b[orderBy];
+  }
+
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -73,12 +77,12 @@ function getComparator(order, orderBy) {
 }
 
 function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
+  const stabilizedThis = array.map((el, index) => [el, index]);  
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
-    return a[1] - b[1];
-  });
+    return a[0] - b[0];
+  });  
   return stabilizedThis.map((el) => el[0]);
 }
 
@@ -138,7 +142,7 @@ EnhancedTableHead.propTypes = {
 export default function AnomalyTable({ anomalyData }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('fromLine');
+  const [orderBy, setOrderBy] = React.useState('startTime');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);  
   const rowsPerPage = 10;
