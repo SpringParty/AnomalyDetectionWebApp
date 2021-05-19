@@ -13,9 +13,8 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
   const buttonOnClickHandler = () => {
     setClick(true);
 
-    if (algorithm && modelFile && anomalyFile) {
+    if (algorithm!=="select" && modelFile && anomalyFile) {
       const formData = new FormData();
-
       formData.append(
         "model",
         modelFile,
@@ -33,7 +32,6 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
       } else {
         algorithm = "hybrid";
       }
-      
       axios.post("api/detect?model_type=" + algorithm, formData)
       .then((data) => {
         setAnomalyData(data);
