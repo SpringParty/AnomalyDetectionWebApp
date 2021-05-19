@@ -93,7 +93,7 @@ To view the detailed hierarchy, expand the sections below:
 1. Install LTS version of [Node.js](https://nodejs.org/en/).
    While installing Node.js, make sure that the following path will be added to PATH environment variable: C:\\Users\username\AppData\Roaming\npm.
 2. Install nodemon from npm - open cmd and run the following command: `npm install nodemon -g`
-
+3. Install [postman](https://www.postman.com/downloads/) in order to test http requests.
 
 ## 📋 Installation Guide for Clean Environment
 1. Install [React Developer Tools for Google Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
