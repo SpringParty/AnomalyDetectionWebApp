@@ -142,8 +142,8 @@ Further documentation regarding the project's UML can be found [here](https://gi
 
 ## 📋 Installation Guide for Clean Environment
 1. Install [React Developer Tools for Google Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en).
-2. After clonening repo, open cmd from the repo's folder and run the following command: `npm i`
-3. Open cmd from the repo's folder and run the following command: `npm start`
+2. After cloning repo, open cmd from the repo's folder and run the following command: `npm i`
+3. Open cmd from the repo's folder and run the following commands: `npm run build` , `npm start`
 
 ## 📚 Further Documentation
 For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our [Wiki Site](https://github.com/SpringParty/AnomalyDetectionWebApp/wiki).
