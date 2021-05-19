@@ -1,19 +1,12 @@
 import React from "react";
 import { useSnackbar } from "notistack";
 
-export default function Notification({
-  data,
-  errorData,
-  message,
-  click,
-  setClick,
-  notificationType
-}) {
+export default function Notification({ data, errorData, message, click, setClick, notificationType }) {
   const { enqueueSnackbar } = useSnackbar();
 
   React.useEffect(() => {
-    if (click) {
-      if (data == errorData) {
+    if (click) {      
+      if (data === errorData) {
         enqueueSnackbar(message, {
           variant: notificationType,
           autoHideDuration: 6000,
@@ -22,7 +15,7 @@ export default function Notification({
         setClick(false);
       }
     }
-  }, [click]);
+  }, [click, data, errorData, enqueueSnackbar, message, notificationType, setClick]);
 
   return null;
 }

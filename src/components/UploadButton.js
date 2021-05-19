@@ -8,7 +8,7 @@ import { TextField } from "@material-ui/core";
 export default function UploadButton({ buttonText, setFile }) {
   const fileInput = React.createRef();
   const costumInputText = React.createRef();
-  const [FileName, setFileName] = React.useState(null);
+  const [FileName, setFileName] = React.useState("");
   const handleChange = (e) => {
     setFile(e.target.files[0]);
     setFileName(e.target.files[0].name);
@@ -23,9 +23,8 @@ export default function UploadButton({ buttonText, setFile }) {
       <GridContainer>
         <GridContainer>
           <GridItem>
-            <TextField
-              // label={fieldText}
-              formControlProps={{ fullWidth: true }}
+            <TextField              
+              fromcontrolprops={{ fullWidth: true }}
               inputProps={{ readOnly: true }}
               ref={costumInputText}
               value={FileName}

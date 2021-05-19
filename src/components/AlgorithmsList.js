@@ -30,8 +30,8 @@ export default function AlgorithmsList({ algorithm, setAlgorithm }) {
   return (
     <div className={classes.section}>
       <div className={classes.container}>
-        <GridContainer xs={12} sm={12} md={12}>
-          <GridItem>
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={12}>
             <div className={classes.title}>
               <h4>Choose an Anomaly Detection Algorithm:</h4>
             </div>

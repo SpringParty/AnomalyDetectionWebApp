@@ -29,6 +29,7 @@ const app = express();
 app.use(fileupload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+  
 
 // homepage
 app.get("/", (req, res) => {

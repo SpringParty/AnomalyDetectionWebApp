@@ -142,9 +142,10 @@ EnhancedTableHead.propTypes = {
 
 export default function AnomalyTable({ anomalyData, renderedData, setRenderedData }) {
   const classes = useStyles();
+  
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('startTime');
-  const [selected, setSelected] = React.useState([]);  
+  const selected = [];  
   const [page, setPage] = React.useState(0);  
   const rowsPerPage = 10;
 
@@ -161,7 +162,7 @@ export default function AnomalyTable({ anomalyData, renderedData, setRenderedDat
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
     let rows = [];
-    if (anomalyData != undefined) {
+    if (anomalyData !== null) {
         for (let i = 0; i < anomalyData.data.length; i++) {
             rows.push({
                 rowid: i,
@@ -201,8 +202,7 @@ export default function AnomalyTable({ anomalyData, renderedData, setRenderedDat
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                  const isItemSelected = isSelected(row.name);                  
 
                   return (
                     <StyledTableRow

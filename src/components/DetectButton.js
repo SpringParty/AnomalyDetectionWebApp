@@ -13,7 +13,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
   const buttonOnClickHandler = () => {
     setClick(true);
 
-    if (algorithm!=="select" && modelFile && anomalyFile) {
+    if (algorithm !=="select" && modelFile && anomalyFile) {
       const formData = new FormData();
       formData.append(
         "model",
@@ -27,7 +27,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
         anomalyFile.name
       );
 
-      if (algorithm == "Linear Regression") {
+      if (algorithm === "Linear Regression") {
         algorithm = "regression";
       } else {
         algorithm = "hybrid";
@@ -71,7 +71,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
         />
         <Notification
           data={modelFile}
-          errorData={null}
+          errorData={""}
           message={
             <span>
               <b>NO MODEL FILE WAS SELECTED</b>
@@ -83,7 +83,7 @@ export default function DetectButton({ algorithm, modelFile, anomalyFile, setAno
         />
         <Notification
           data={anomalyFile}
-          errorData={null}
+          errorData={""}
           message={
             <span>
               <b>NO ANOMALY FILE WAS SELECTED</b>
