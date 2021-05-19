@@ -93,8 +93,8 @@ export default function Components(props) {
             <GridItem>              
               <AnomalyTable 
                 anomalyData={anomalyData}
-                setRenderedData={setRenderAnomalyData}
                 renderedData={renderAnomalyData}
+                setRenderedData={setRenderAnomalyData}
                  />
             </GridItem>
           </GridContainer>          
