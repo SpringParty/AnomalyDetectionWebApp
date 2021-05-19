@@ -132,7 +132,7 @@ The project was constructed using MVC architecture:
 
 * **C**ontroller: **server.js** acts as the controller component, sending HTTP requests to operate the model, and using the vuew layer of the product.
 
-Further documentation regarding the project's UML can be found [here](https://github.com/SpringParty/AnomalyDetectionWebApp/wiki).
+Further documentation regarding the project's UML can be found [here](https://github.com/SpringParty/AnomalyDetectionWebApp/wiki/%F0%9F%8F%A0--Home).
 
 ## 🔧 Technical Requirements
 1. Install LTS version of [Node.js](https://nodejs.org/en/).
@@ -146,7 +146,7 @@ Further documentation regarding the project's UML can be found [here](https://gi
 3. Open cmd from the repo's folder and run the following commands: `npm run build` , `npm start`
 
 ## 📚 Further Documentation
-For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our [Wiki Site](https://github.com/SpringParty/AnomalyDetectionWebApp/wiki).
+For more info regarding the main classes of the project, information flow and UML diagrams, please refer to our [Wiki Site](https://github.com/SpringParty/AnomalyDetectionWebApp/wiki/%F0%9F%8F%A0--Home).
 
 ## 🎥 Demo
 Our demo video
