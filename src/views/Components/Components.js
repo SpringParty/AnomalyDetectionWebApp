@@ -4,11 +4,10 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
-// core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
-
+// core components
 import AlgorithmsList from "components/AlgorithmsList.js";
 import UploadButton from "components/UploadButton.js";
 import DetectButton from "components/DetectButton.js";
@@ -24,7 +23,7 @@ export default function Components(props) {
   const [algorithm, setAlgorithm] = React.useState("select");
   const [modelFile, setModelFile] = React.useState("");
   const [anomalyFile, setAnomalyFile] = React.useState("");
-  const [anomalyData, setAnomalyData] = React.useState(null);  
+  const [anomalyData, setAnomalyData] = React.useState(null);
   const [renderAnomalyData, setRenderAnomalyData] = React.useState(false);
 
   return (
@@ -71,15 +70,15 @@ export default function Components(props) {
                 setAnomalyData={setAnomalyData}
                 setRenderedData={setRenderAnomalyData}
               />
-            </GridItem>            
-            <GridItem xs={12}>              
-              <AnomalyTable 
+            </GridItem>
+            <GridItem xs={12}>
+              <AnomalyTable
                 anomalyData={anomalyData}
                 renderedData={renderAnomalyData}
                 setRenderedData={setRenderAnomalyData}
-                 />
+              />
             </GridItem>
-          </GridContainer>          
+          </GridContainer>
         </div>
       </div>
     </div>

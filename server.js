@@ -6,12 +6,12 @@ const bodyParser = require("body-parser");
 const fileupload = require("express-fileupload");
 const Detector = require("./Detector.js");
 
-const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
-// const modelsDir = path.join(__dirname, "models");
+// const modelsDir = "C:\\Users\\user\\Documents\\University\\Test\\models";
+const modelsDir = path.join(__dirname, "models");
 // if models folder does not exist
 try {
   if (!fs.existsSync(modelsDir)) {
-    fs.mkdirSync(modelsDir);    
+    fs.mkdirSync(modelsDir);
   }
 } catch (err) {
   console.error(err);
@@ -29,7 +29,6 @@ const app = express();
 app.use(fileupload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-  
 
 // homepage
 app.get("/", (req, res) => {
@@ -41,7 +40,7 @@ app.post("/api/detect", (req, res) => {
   let data = [];
 
   const modelType = req.query["model_type"];
-  
+
   // if no correct modelType was specified
   if (modelType !== "regression" && modelType !== "hybrid") {
     res
@@ -119,7 +118,7 @@ app.post("/api/detect", (req, res) => {
  */
 function createCsvFile(filePath, fileData) {
   try {
-    fs.writeFileSync(filePath, fileData, "utf8");    
+    fs.writeFileSync(filePath, fileData, "utf8");
   } catch (err) {
     return console.error(err);
   }
@@ -133,7 +132,8 @@ function deleteCsvFile(filePath) {
   if (fs.existsSync(filePath)) {
     // delete file from folder
     fs.unlink(filePath, (err) => {
-      if (err) console.err(`Could not delete file ${filePath} from server.`, err);
+      if (err)
+        console.err(`Could not delete file ${filePath} from server.`, err);
     });
   }
 }
