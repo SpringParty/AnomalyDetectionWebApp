@@ -17,6 +17,19 @@ Then, you need to add in index.cpp file, 'if' sentence in LearnNormal and Detect
 
 If your detector adds some new features, you can also modify correlatedFeatures struct in AnomalyDetector.h file, and add the feautes to Detect method in index.cpp. 
 
+##### Sending detect POST request
+In order to send a post request from anywhere (POSTMAN, SOAPUI etc..), send a detect post request to port 8080 as the following:
+1. Type the following http request: http://localhost:8080/api/detect?
+2. Use query parameter model_type, and choose: regression (for Linear Regression detector), hybrid (for Hybrid detector).
+3. Upload 2 files:
+   - model: a csv file with data to learn from.
+   - anomaly: a csv file with the data with anomalies.
+4. Send the request.
+
+for example:
+![image](https://user-images.githubusercontent.com/64840957/120096238-edf95c80-c132-11eb-9430-c846d9ec7412.png)
+
+
 ## 👪 Project Hierarchy
 
 To view the detailed hierarchy, expand the sections below:
