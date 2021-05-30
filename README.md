@@ -1,6 +1,7 @@
 # 🕵️‍♀️ AnomalyDetectionWebApp
 ## 🔎 Overview
 AnomalyDetectionWebApp allows the user to detect anomalies of a desired CSV file based on learned data, using an algorithm of choice. 
+
 This project is based on the second version.
 
 ### Special Features
